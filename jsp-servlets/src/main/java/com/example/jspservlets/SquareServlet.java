@@ -1,4 +1,4 @@
-package com.example.javaeehelloworld;
+package com.example.jspservlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
