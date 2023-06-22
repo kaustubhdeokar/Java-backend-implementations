@@ -15,7 +15,7 @@ public class SquareServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int value = (int) req.getAttribute("value");
+        int value = Integer.parseInt(req.getParameter("value"));//fetching through redirect.
         PrintWriter writer = resp.getWriter();
         writer.println("In square servlet.");
         writer.println("square value" + value * value);

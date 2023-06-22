@@ -33,8 +33,7 @@ public class AddServlet extends HttpServlet {
 
         req.setAttribute("value", value);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("square-servlet");
-        requestDispatcher.forward(req, resp);
+        resp.sendRedirect("square-servlet?value=12");//passing through redirect.//not safe.
 
     }
 }
