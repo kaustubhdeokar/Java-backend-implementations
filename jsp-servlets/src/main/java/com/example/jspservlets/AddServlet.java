@@ -3,9 +3,7 @@ package com.example.jspservlets;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,10 +28,12 @@ public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int value = add(req, resp.getWriter());
+        HttpSession session = req.getSession();
+        session.setAttribute("value", value);
 
-        req.setAttribute("value", value);
+        Cookie cookie = new Cookie("value", value+"");
+        resp.addCookie(cookie);
 
-        resp.sendRedirect("square-servlet?value=12");//passing through redirect.//not safe.
-
+        resp.sendRedirect("square-servlet");
     }
 }

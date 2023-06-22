@@ -2,9 +2,7 @@ package com.example.jspservlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,8 +13,19 @@ public class SquareServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int value = Integer.parseInt(req.getParameter("value"));//fetching through redirect.
+        HttpSession httpSession = req.getSession();
+        int value = (Integer) httpSession.getAttribute("value");
+        //httpSession.removeAttribute("value");//will remove attribute.
         PrintWriter writer = resp.getWriter();
+
+        Cookie[] cookies = req.getCookies();
+        for (Cookie c : cookies) {
+            if ("value".equals(c.getName())) {
+                writer.println("value set from cookie");
+                value = Integer.parseInt(c.getValue());
+            }
+        }
+
         writer.println("In square servlet.");
         writer.println("square value" + value * value);
     }

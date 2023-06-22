@@ -2,6 +2,8 @@ package com.example.jspservlets;
 
 import java.io.*;
 
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -20,6 +22,15 @@ public class HelloServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
+
+        //individual servlet thing.
+        ServletConfig sc = getServletConfig();
+        out.println("<h2>"+sc.getInitParameter("key1")+"</h2>");
+
+        //shared between all servlets.
+        ServletContext servletContext = getServletContext();
+        out.println("<h2>"+servletContext.getInitParameter("key1")+"</h2>");
+
     }
 
     public void destroy() {
