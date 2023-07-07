@@ -1,0 +1,21 @@
+the maven project at first has only a source folder and pom.xml file. 
+
+If you are working with a spring boot project, you may see a mvnw (linux & mac) & mvnw.cmd (windows) file. These files are maven wrapper files. 
+So that the user does not need to have maven installed.
+
+ mvn validate: - looks at pom.xml - and performs checks (unknown). 
+ 
+ mvn clean - 	deletes the target folder.
+ mvn compile -  creates the target folder with necessary files from source.
+ mvn compile test - compiles src files and looks at the test folders, runs the test inside them. 
+ mvn package - (clean, compile & test & package the whole thing that you can send).
+ mvn install - does all the things that mvn package does + puts the file in your local maven repository.
+ 
+ 
+ For a multi-module maven project, the main pom.xml has <modules> defined for all it's child modules. 
+ the dependencies defined here are common for all modules. 
+ A module can refer to another module as a dependency with a version same as the project's version.   
+ 	   
+ 	  
+ 	  
+ 	  

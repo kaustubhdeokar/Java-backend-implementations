@@ -1,7 +1,5 @@
 package com.example.jspservlets;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -26,7 +24,7 @@ public class AddServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int value = add(req, resp.getWriter());
         HttpSession session = req.getSession();
         session.setAttribute("value", value);

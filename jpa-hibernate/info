@@ -1,0 +1,13 @@
+Course link: https://github.com/in28minutes/jpa-with-hibernate
+
+Spring boot quick intro before JPA.
+	Spring boot used for buidling production ready applications quickly.
+	Provide common non-functional features.
+		embedded-servers, health checks, metrics.
+
+One of the great feature that spring boot provides is starter projects.
+	- web
+	- jpa
+
+if spring boot was not 
+	we had to implement default exception handling.

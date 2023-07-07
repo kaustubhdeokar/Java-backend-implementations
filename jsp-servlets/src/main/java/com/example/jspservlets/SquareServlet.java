@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 public class SquareServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HttpSession httpSession = req.getSession();
         int value = (Integer) httpSession.getAttribute("value");
