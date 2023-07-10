@@ -1,0 +1,7 @@
+the web.xml is the deployment descriptor.
+
+Java EE is a standard - a way to build web applications.
+Servlets, JPA, JAX-rs(rest services support) are parts of this Java EE.
+
+Spring MVC uses the pattern known as front controller. 
+All requests are diverted to the front controller. 
