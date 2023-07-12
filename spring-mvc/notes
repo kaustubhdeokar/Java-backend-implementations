@@ -5,3 +5,21 @@ Servlets, JPA, JAX-rs(rest services support) are parts of this Java EE.
 
 Spring MVC uses the pattern known as front controller. 
 All requests are diverted to the front controller. 
+
+The way spring mvc works is we have 
+
+M - Models - object models of things we develop.
+C - Controller - the requests first comes here.
+
+
+History;
+
+Model 1 Architecture 
+	only jsp's. - all business logic was also written here. 
+	no servlets controllers.
+	
+Model 2 MVC. 
+	We also have a front controller - where all the request are directed first.
+	This is known as the dispatcher servlet.
+
+

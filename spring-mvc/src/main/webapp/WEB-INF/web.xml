@@ -5,7 +5,7 @@
          version="5.0">
 
     <display-name>Todo list</display-name>
-
+    <absolute-ordering />
     <servlet-mapping>
         <servlet-name>loginservlet</servlet-name>
         <url-pattern>/loginservlet/*</url-pattern>
@@ -30,7 +30,7 @@
 
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/spring-mvc/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 </web-app>
