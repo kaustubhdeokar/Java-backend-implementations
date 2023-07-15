@@ -46,4 +46,13 @@ public class TodoService {
         }
     }
 
+    public void updateTodo(int id, String desc) {
+        Iterator<Todo> iterator = todos.iterator();
+        while (iterator.hasNext()) {
+            Todo todo = iterator.next();
+            if (todo.getId() == id) {
+                todo.setDesc(desc);
+            }
+        }
+    }
 }

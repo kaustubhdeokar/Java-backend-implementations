@@ -3,6 +3,7 @@
     <title>Yahoo!!</title>
 </head>
 <body>
-Welcome ${username}
+Welcome ${username} <br>
+Manage yours todos. <a href="todos?username=${username}">Todos</a>
 </body>
 </html>

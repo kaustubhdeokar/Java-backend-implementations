@@ -23,3 +23,46 @@ Model 2 MVC.
 	This is known as the dispatcher servlet.
 
 
+Component scan and autowiring are part of the feature 
+'dependency injection' provided by spring. 
+
+Dependency injection is the feature provided by the CORE CONTAINER MODULE. 
+it also handles number of basic feature.
+i18n, message bundle, property file loading.
+
+Most important functionality of the core container is bean lifecycle management.
+BeanFactory - helps in the same.
+ 
+ Context - Application context.
+ 
+ Spring MVC - web module of the spring framework.
+ 
+ Spring data access / integration module - 
+ jdbc - 
+ orm - orm frameworks integration.
+ oxm - java to xml and vice versa.
+ 
+ AOP  - intercepting calls 
+ 
+ 
+ Back to spring mvc.
+ 
+ Scopes. 
+ 
+ Request scope - 
+  when a url is passed as get /todos?username=${username}
+  the attribute username is only present for this particular request scope.
+  For using it, each type you will have to put it in the model map. 
+  
+To put it into a session scope. 
+Done for username in logincontroller & todocontroller.
+
+According to Rod Johnson's book - 
+using model is preferred over passing parameters over a request attribute.
+
+This course covers core features of spring mvc.
+i18n is not done here.
+
+spring security will be taken as a separate topic.
+
+spring framework next & then jpa and hibernate.

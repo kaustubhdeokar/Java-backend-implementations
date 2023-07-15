@@ -6,15 +6,6 @@
 
     <display-name>Todo list</display-name>
     <absolute-ordering />
-    <servlet-mapping>
-        <servlet-name>loginservlet</servlet-name>
-        <url-pattern>/loginservlet/*</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>helloServlet</servlet-name>
-        <url-pattern>/hello-servlet</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>

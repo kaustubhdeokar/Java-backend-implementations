@@ -6,8 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
 <html>
 <head>
     <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -16,12 +14,11 @@
 </head>
 <body>
 
-<h2>Add a todo</h2>
-
-<form:form action="/add-todo" method="POST" modelAttribute="todo">
-    Descr:<form:input path="desc" type="text" name="desc"/>
+<h2>Update a todo</h2>
+<form action="/update-todo?id=${id}" method="POST">
+    Descr:<input path="desc" type="text" name="desc"/>
     <input type="submit">
-</form:form>
+</form>
 
 </body>
 </html>
