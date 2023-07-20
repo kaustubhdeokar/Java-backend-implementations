@@ -61,7 +61,5 @@ public class SpringJdbcApplication implements CommandLineRunner {
         List<Person> all = daoRepo.findAll();
         System.out.println(all);
 
-        
-
     }
 }

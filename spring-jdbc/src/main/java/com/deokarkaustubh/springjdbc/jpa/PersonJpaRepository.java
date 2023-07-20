@@ -3,6 +3,7 @@ package com.deokarkaustubh.springjdbc.jpa;
 import com.deokarkaustubh.springjdbc.entity.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Table;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Table(name = "person")
 public class PersonJpaRepository {
 
     @PersistenceContext
