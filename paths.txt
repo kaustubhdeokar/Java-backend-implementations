@@ -11,16 +11,13 @@ build microservices
 docker-kubernetes integration (also spring cloud)
 
 
-Spring MVC: https://learning.oreilly.com/videos/spring-mvc-for/9781789139341/9781789139341-video2_1/
-
-Hiberante and JPA with Spring Boot: https://learning.oreilly.com/videos/master-hibernate-and/9781788995320/9781788995320-video2_3/
-
-Spring Framework Master: https://learning.oreilly.com/videos/spring-framework-master/9781788994576/9781788994576-video2_1/
-
-Master Java Web Services: https://learning.oreilly.com/videos/master-java-web/9781789130133/9781789130133-video1_1/
-
-Spring Boot 3: https://learning.oreilly.com/videos/learn-spring-boot/9781788996624/9781788996624-video1_1/
-
-Microservices: https://learning.oreilly.com/videos/master-microservices-with/9781789132779/9781789132779-video1_1/
 
 
+current:
+Master Hibernate and JPA with Spring Boot in 100 Steps
+https://learning.oreilly.com/videos/master-hibernate-and/9781788995320/
+upcoming;
+Master Java Web Services and REST API with Spring Boot
+https://learning.oreilly.com/videos/master-java-web/9781789130133/
+Master Microservices with Spring Boot and Spring Cloud
+https://learning.oreilly.com/videos/master-microservices-with/9781789132779/
