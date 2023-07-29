@@ -1,8 +1,9 @@
 package com.deokarkaustubh.jpahibernateindepth.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Fetch;
 
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -12,6 +13,11 @@ public class Student {
     @GeneratedValue
     private Long id;
     private String name;
+
+    @ManyToMany
+    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courseList = new ArrayList<>();
 
     public Student(String name) {
         this.name = name;
@@ -42,5 +48,13 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void addCourse(Course course) {
+        courseList.add(course);
     }
 }

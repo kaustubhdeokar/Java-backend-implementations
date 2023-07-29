@@ -2,6 +2,7 @@ package com.deokarkaustubh.jpahibernateindepth;
 
 import com.deokarkaustubh.jpahibernateindepth.entity.Course;
 import com.deokarkaustubh.jpahibernateindepth.entity.Review;
+import com.deokarkaustubh.jpahibernateindepth.entity.Student;
 import com.deokarkaustubh.jpahibernateindepth.repo.CourseRepo;
 import com.deokarkaustubh.jpahibernateindepth.repo.StudentRepo;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,14 +36,20 @@ public class JpaHibernateInDepthApplication implements CommandLineRunner {
     CourseRepo courseRepo;
 
     @Override
+    @Transactional
     public void run(String... args) {
 
         try {
+
+            Student student = new Student("jill");
+            Course course = new Course("microservices-6");
+            studentRepo.addCourseForStudent(student, course);
 
             /*
             createCourse();
             findCourse();
             addReviews();
+            retrieveCoursesForStudent();
             */
 
         } catch (Exception e) {
@@ -49,6 +57,12 @@ public class JpaHibernateInDepthApplication implements CommandLineRunner {
         }
 
 
+    }
+
+    private void retrieveCoursesForStudent() {
+        Student student = studentRepo.findById(20001L);
+        List<Course> courseList = student.getCourseList();
+        logger.info("### -> {}", courseList);
     }
 
     private void createCourse() {

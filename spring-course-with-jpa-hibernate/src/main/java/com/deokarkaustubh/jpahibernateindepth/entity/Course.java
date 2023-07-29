@@ -27,6 +27,9 @@ public class Course {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
+    @ManyToMany(mappedBy = "courseList")
+    private List<Student> studentList = new ArrayList<>();
+
 
     //jpa needs to have a no-args constructor.
     protected Course() {
@@ -63,6 +66,18 @@ public class Course {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void addStudent(Student student) {
+        studentList.add(student);
+    }
+
+    public void removeStudent(Student student) {
+        studentList.remove(student);
     }
 
     @Override

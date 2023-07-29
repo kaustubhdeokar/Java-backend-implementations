@@ -1,5 +1,6 @@
 -- insert into course(id, name, created_date, last_updated_date) values ('1', 'course1', sysdate(), sysdate());
-select * from course;
+select *
+from course;
 
 -- insert into passport(id,number)
 -- values(40001,'E123456');
@@ -28,3 +29,12 @@ select * from course;
 -- values(60002,'4', 'Wonderful Course',10001);
 -- insert into review(id,rating,description,course_id)
 -- values(60003,'5', 'Awesome Course',10003);
+
+-- insert into student_course(student_id,course_id)
+-- values(20001,10001);
+-- insert into student_course(student_id,course_id)
+-- values(20002,10001);
+-- insert into student_course(student_id,course_id)
+-- values(20003,10001);
+-- insert into student_course(student_id,course_id)
+-- values(20001,10003);
