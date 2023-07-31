@@ -13,11 +13,12 @@ docker-kubernetes integration (also spring cloud)
 
 
 
-current:
+done:
 Master Hibernate and JPA with Spring Boot in 100 Steps
 https://learning.oreilly.com/videos/master-hibernate-and/9781788995320/
-upcoming;
+current:
 Master Java Web Services and REST API with Spring Boot
 https://learning.oreilly.com/videos/master-java-web/9781789130133/
+upcoming:
 Master Microservices with Spring Boot and Spring Cloud
 https://learning.oreilly.com/videos/master-microservices-with/9781789132779/
