@@ -32,7 +32,7 @@ public class Course {
 
 
     //jpa needs to have a no-args constructor.
-    protected Course() {
+    public Course() {
     }
 
     public List<Review> getReviews() {

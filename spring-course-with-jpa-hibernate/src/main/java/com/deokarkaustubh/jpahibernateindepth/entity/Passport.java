@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "passport")
 public class Passport {
 
-
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
     @Column(nullable = false)
     private String number;
