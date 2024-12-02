@@ -1,23 +1,23 @@
 package com.deokarkaustubh.jpahibernateindepth.entity;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
 
 import java.util.List;
 
 public class Main {
-    private SessionFactory sessionFactory;
+    private EntityManagerFactory sessionFactory;
 
     private void instantiateHibernate() {
         // configures settings from hibernate.cfg.xml
         initSessionFactory();
         performSessionOperations();
         performUpdateOperations();
-//        performDeleteOperations();
+        performDeleteOperations();
         closeSessionFactory();
     }
 
@@ -32,11 +32,11 @@ public class Main {
     }
 
     private void performUpdateOperations() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        EntityManager session = sessionFactory.createEntityManager();
+        session.getTransaction().begin();
 
-        List<Student> studentList = session.createQuery("select s from Student s", Student.class).list();
-        List<Course> courseList = session.createQuery("select c from Course c", Course.class).list();
+        List<Student> studentList = session.createQuery("select s from Student s", Student.class).getResultList();
+        List<Course> courseList = session.createQuery("select c from Course c", Course.class).getResultList();
 
         for (Student s : studentList) {
             for (Course c : courseList) {
@@ -51,18 +51,18 @@ public class Main {
     }
 
     private void performDeleteOperations() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        EntityManager em = sessionFactory.createEntityManager();
+        em.getTransaction().begin();
 
-        session.createQuery("delete from Student s").executeUpdate();
-        session.createQuery("delete from Course c").executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        em.createQuery("delete from Student s").executeUpdate();
+        em.createQuery("delete from Course c").executeUpdate();
+        em.getTransaction().commit();
+        em.close();
     }
 
     private void performSessionOperations() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        EntityManager em = sessionFactory.createEntityManager();
+        em.getTransaction().begin();
         Passport passport1 = new Passport();
         passport1.setNumber("p101");
         Passport passport2 = new Passport();
@@ -84,15 +84,15 @@ public class Main {
 //        student1.getCourseList().add(course1);
 //        student2.getCourseList().add(course2);
 
-        session.persist(student1);
-        session.persist(student2);
-        session.persist(course1);
-        session.persist(course2);
-        session.persist(passport1);
-        session.persist(passport2);
+        em.persist(student1);
+        em.persist(student2);
+        em.persist(course1);
+        em.persist(course2);
+        em.persist(passport1);
+        em.persist(passport2);
 
-        session.getTransaction().commit();
-        session.close();
+        em.getTransaction().commit();
+        em.close();
     }
 
     private void closeSessionFactory() {
