@@ -1,6 +1,3 @@
-# Java-Backend
-
-### Covers. 
 
 Spring Bean is any object that is managed by Spring.
 
@@ -39,28 +36,3 @@ jpql - query language of jpa.
 In spring we have to manually declare the dependencies and maintain them. 
 Hibernate mvc all databases and everything.
 in spring boot we can just declare starter-web and web server , mvc would be added for us.
-
-Microservices
-[Microservice arch](res/microservices.png)
-
-Resilience patterns in microservices:
-1. Circuit Breaker
-3. Timeout
-4. Bulkhead
-5. Fallback
-
-Client side load balancing.
- - each microservice when communcating with other microservices - contacts a discovery service (eureka) and gets the ip address of the microservice it wants to communicate with.
- - but repeatedly contacting the discovery service is not efficient.
- - hence we maintain a some sort of cache on the client side when one request is done.
- - when contacting an instance when is cached, if it fails beyond certain calls, we remove it from the cache and contact the discovery service again.
-
-Circuit breaker
-- when a service is down, the client service should not keep on trying to contact the service.
-
-Fallback
-- when a service is down, it should switch to some default or other backup service which should be used.
-
-Bulkhead
-- when a service is down, it should not affect the other services. isolation of services.
-
