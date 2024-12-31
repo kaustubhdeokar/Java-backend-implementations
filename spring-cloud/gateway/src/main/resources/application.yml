@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: payment-service
+          uri: http://localhost:9100  # Assuming your payment service is running on port 8081
+          predicates:
+            - Path=/pay/**  # All requests starting with /pay will be routed to the payment service
+
+        - id: shopping-service
+          uri: http://localhost:9090  # Assuming your shopping service is running on port 8082
+          predicates:
+            - Path=/shop/**  # All requests starting with /shop will be routed to the shopping service
