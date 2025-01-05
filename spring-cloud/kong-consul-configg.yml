@@ -1,0 +1,32 @@
+_format_version: "2.1"
+
+services:
+  - name: shopping-service
+    host: shopping-service.service.consul
+    port: 9090
+    protocol: http
+    connect_timeout: 1000
+    write_timeout: 1000
+    read_timeout: 1000
+    routes:
+      - name: shopping-route
+        paths:
+          - /shop
+        strip_path: false
+
+  - name: payment-service
+    host: payment-service.service.consul
+    port: 9100
+    protocol: http
+    connect_timeout: 1000
+    write_timeout: 1000
+    read_timeout: 1000
+    routes:
+      - name: payment-route
+        paths:
+          - /pay
+        strip_path: false
+
+dns_resolver:
+  nameservers:
+    - 127.0.0.1:8600

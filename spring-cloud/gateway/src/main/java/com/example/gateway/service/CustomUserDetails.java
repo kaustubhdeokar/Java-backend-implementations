@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class CustomUser implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private final String username;
     private final String password;
@@ -15,8 +15,8 @@ public class CustomUser implements UserDetails {
     private final boolean isAccountNonLocked;
     private final boolean isAccountNonExpired;
 
-    public CustomUser(String username, String password, boolean enabled, boolean accountNonExpired,
-                      boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities)
+    public CustomUserDetails(String username, String password, boolean enabled, boolean accountNonExpired,
+                             boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities)
     {
         this.username = username;
         this.password = password;

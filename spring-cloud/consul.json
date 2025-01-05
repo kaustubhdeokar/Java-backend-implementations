@@ -1,0 +1,17 @@
+{
+  "data_dir": "/tmp/consul",
+  "client_addr": "0.0.0.0",
+  "bind_addr": "127.0.0.1",
+  "ports": {
+    "dns": 8600,
+    "http": 8500,
+    "serf_lan": 8301,
+    "serf_wan": 8302,
+    "server": 8300
+  },
+  "enable_script_checks": true,
+  "dns_config": {
+    "enable_truncate": true,
+    "only_passing": true
+  }
+}
