@@ -36,7 +36,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(customDaoAuthProvider)
+//                .authenticationProvider(customDaoAuthProvider)
                 .authenticationProvider(jwtAuthProvider)
                 .userDetailsService(customUserDetailsService)
                 .addFilterBefore(new JwtAuthFilter(jwtAuthProvider), UsernamePasswordAuthenticationFilter.class)
@@ -50,8 +50,7 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationManager authenticationManager() {
-        return new ProviderManager(Arrays.asList(jwtAuthProvider,
-                customDaoAuthProvider));
+        return new ProviderManager(Arrays.asList(jwtAuthProvider));
     }
 
 }

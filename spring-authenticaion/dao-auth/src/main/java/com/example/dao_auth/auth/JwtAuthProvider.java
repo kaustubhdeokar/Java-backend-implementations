@@ -33,7 +33,6 @@ public class JwtAuthProvider implements AuthenticationProvider {
         catch (Exception e){
             throw new CustomException("invalid jwt token");
         }
-
         throw new CustomException("Auth failed");
     }
 
