@@ -9,6 +9,7 @@ request–response. It has the ability to modify the request–response objects.
 - Depending upon the authentication that spring uses - that specific filter is invoked. Like UsernamePasswordAuthentication for when user uses username/password or Basic-AuthenticationFilter when using basic http spring authentication.
 
 Spring Authentication
+- Filter is a concept of the servlet container, from the servlet container (tomcat) it comes to the spring context to the DelegatingProxyFilter.
 - Delegating Filter proxy receives the authentication request.
 - it passes on the authentication request to the filter chain.
 - These filter chains are maintained by Spring, we can add or remove filters , also adjust their order.
@@ -108,3 +109,7 @@ Implicit grant techique
 - Disadvantages:
 - Access Token Exposure: The access token is returned in the URL fragment, which is accessible to the user agent (e.g., web browser). This makes it more susceptible to interception by malicious scripts or browser extensions.
 - no refresh tokens - short lived tokens.
+
+3. Client Credentials Flow: This flow is used for machine-to-machine communication where the client authenticates directly with the authorization server using its credentials to obtain an access token.
+
+4. Hybrid Flow: This flow is a combination of the Authorization Code Flow and the Implicit Flow. It allows the client to receive some tokens directly from the authorization endpoint and others from the token endpoint.
