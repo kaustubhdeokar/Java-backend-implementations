@@ -19,8 +19,27 @@ Any object created in spring has scopes.
 - What is the difference ? HTTP request vs ServletContext
 - - ServletContext: In the context of Spring Framework, the Application scope means that a single bean instance is created for the entire lifecycle of the web application, shared across all HTTP requests and sessions.
 
-- so what happens if an object which has a request scope refers an object of application scope ?
-- - In the Spring Framework, if an object with a Request scope refers to an object with an Application scope, the Application scoped object will be shared across all HTTP requests and sessions, while the Request scoped object will be created anew for each HTTP request. The Request scoped object will hold a reference to the same Application scoped object instance for each request.  This means that the Application scoped object will maintain its state across multiple requests, while the Request scoped object will be instantiated afresh for each request, but it will always refer to the same Application scoped object.
+5.3.2 Different scopes
+Instances may not be destroyed if the fields have different scopes. This is a pitfall caused by the Java specification. For example, if an instance of singleton scope has an instance of prototype scope in a field.
+[Bad example sample code]
+```
+@Component
+@Scope ("prototype" )
+public class PrototypeComponent {
+…
+}
+```
+[Bad example sample code]
+```
+@Component
+public class SingletonComponent {
+@Autowired
+private PrototypeComponent component ;
+…
+}
+```
+If you do this, the Bean with the prototype scope (PrototypeComponent above) will become the singleton scope. The same thing happens if you have a bean with request scope set in a bean with session scope.
+Be careful when having beans with different scopes as fields.
 
 @Import annotation - helps in importing bean definitions in one class to other. Beneficial in reusability & maintenance & modularizing. Not good for hidden depdencies & ciruclar ones. 
 
@@ -40,27 +59,7 @@ In spring we have to manually declare the dependencies and maintain them.
 Hibernate mvc all databases and everything.
 in spring boot we can just declare starter-web and web server , mvc would be added for us.
 
-Microservices
-[Microservice arch](res/microservices.png)
-
-Resilience patterns in microservices:
-1. Circuit Breaker
-3. Timeout
-4. Bulkhead
-5. Fallback
-
-Client side load balancing.
- - each microservice when communcating with other microservices - contacts a discovery service (eureka) and gets the ip address of the microservice it wants to communicate with.
- - but repeatedly contacting the discovery service is not efficient.
- - hence we maintain a some sort of cache on the client side when one request is done.
- - when contacting an instance when is cached, if it fails beyond certain calls, we remove it from the cache and contact the discovery service again.
-
-Circuit breaker
-- when a service is down, the client service should not keep on trying to contact the service.
-
-Fallback
-- when a service is down, it should switch to some default or other backup service which should be used.
-
-Bulkhead
-- when a service is down, it should not affect the other services. isolation of services.
+- Because of the dependencies/libraries in the classpath, some applications are configured for such, for example
+  - Because Tomcat is on the classpath (transitively referred to by the web starter dependency), an embedded Tomcat container will be started to listen on port 8080.
+  - Developing your first Spring Boot application, because H2 is on the classpath, an embedded H2 database bean will be created. This bean is of type javax.sql.DataSource, which the JPA implementation (Hibernate) will need to access the database
 

@@ -9,7 +9,8 @@ request–response. It has the ability to modify the request–response objects.
 - Depending upon the authentication that spring uses - that specific filter is invoked. Like UsernamePasswordAuthentication for when user uses username/password or Basic-AuthenticationFilter when using basic http spring authentication.
 
 Spring Authentication
-- Delegating Filter proxy receives the authentication request.
+- Filter is a concept of the servlet container, from the servlet container (tomcat) it comes to the spring context to the DelegatingProxyFilter.
+- DelegatingProxyFilter receives the authentication request.
 - it passes on the authentication request to the filter chain.
 - These filter chains are maintained by Spring, we can add or remove filters , also adjust their order.
 - filter chain - declares the authentication manager which gives us the authentication provider we query to authenticate the user.
@@ -34,10 +35,28 @@ This user has to be formed/returned from the method loadUserByUsername in a clas
 The user that we return/or create - is an implementation of the class UserDetails
 
 
+Login flow-
+-   Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+-   ProviderManager.authenticate
+-   AuthenticationProvider.authenticate
+    - Depending on the provider class
+    -   retrieveUser 
+    -   getUserDetailsService().loadUserByUsername(username);
+    -   returns tokens.
+
+- Depending on the provider class, spring will inject appropriate filters.
+- We can also inject custom filters
+
 Session management
 - stateless
 - never
 - always
+
+- Authentication using JWTs 
+- Symmetric
+  - User logs in, jwt token is generated and user gets that token, uses it in subsequent requests and then backend authenticates token and gives the resource access to the user
+- Asymmetric
+  - As above process but jwt using the private key and verified using the public key.
 
 OAuth authentication
 - different types to implement OAuth2. 
@@ -108,3 +127,7 @@ Implicit grant techique
 - Disadvantages:
 - Access Token Exposure: The access token is returned in the URL fragment, which is accessible to the user agent (e.g., web browser). This makes it more susceptible to interception by malicious scripts or browser extensions.
 - no refresh tokens - short lived tokens.
+
+3. Client Credentials Flow: This flow is used for machine-to-machine communication where the client authenticates directly with the authorization server using its credentials to obtain an access token.
+
+4. Hybrid Flow: This flow is a combination of the Authorization Code Flow and the Implicit Flow. It allows the client to receive some tokens directly from the authorization endpoint and others from the token endpoint.
