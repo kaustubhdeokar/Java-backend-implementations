@@ -44,25 +44,4 @@ BeanFactory - helps in the same.
  
  AOP  - intercepting calls 
  
- 
- Back to spring mvc.
- 
- Scopes. 
- 
- Request scope - 
-  when a url is passed as get /todos?username=${username}
-  the attribute username is only present for this particular request scope.
-  For using it, each type you will have to put it in the model map. 
-  
-To put it into a session scope. 
-Done for username in logincontroller & todocontroller.
 
-According to Rod Johnson's book - 
-using model is preferred over passing parameters over a request attribute.
-
-This course covers core features of spring mvc.
-i18n is not done here.
-
-spring security will be taken as a separate topic.
-
-spring framework next & then jpa and hibernate.

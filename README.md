@@ -1,5 +1,10 @@
 # Java-Backend
 
+- Spring IOC
+- Import configuration.
+- 
+
+
 ### Covers. 
 
 Spring Bean is any object that is managed by Spring.
@@ -7,41 +12,14 @@ Spring Bean is any object that is managed by Spring.
 What is Spring IOC ?
 Spring IOC is a technique to achieve loose-coupling between objects dependencies. In Spring, instead of having the objects create the dependent objects, the container creates the objects and injects them into the dependent objects.
 
-Any object created in spring has scopes. 
-
-1. Singleton :  A single instance per Spring IoC container.
-2. Prototype : A new instance every time a request for that bean is made.
-3. Request (web) : A single instance per HTTP request. (Web-aware)
-4. Session :  A single instance per HTTP session. (Web-aware)
-5. Application : A single instance per ServletContext. (Web-aware)
-6. Websocket :  A single instance per WebSocket. (Web-aware)
-
-- What is the difference ? HTTP request vs ServletContext
-- - ServletContext: In the context of Spring Framework, the Application scope means that a single bean instance is created for the entire lifecycle of the web application, shared across all HTTP requests and sessions.
-
-5.3.2 Different scopes
-Instances may not be destroyed if the fields have different scopes. This is a pitfall caused by the Java specification. For example, if an instance of singleton scope has an instance of prototype scope in a field.
-[Bad example sample code]
+@Import annotation - helps in importing bean definitions in one class to other. Beneficial in reusability & maintenance & modularizing. Can cause hidden/circular dependencies.
 ```
-@Component
-@Scope ("prototype" )
-public class PrototypeComponent {
-…
+@Configuration
+@Import({PrimaryConfig.class, SecondaryConfig.class})
+public class MainConfig {
+    // This class will import the beans defined in PrimaryConfig and SecondaryConfig
 }
 ```
-[Bad example sample code]
-```
-@Component
-public class SingletonComponent {
-@Autowired
-private PrototypeComponent component ;
-…
-}
-```
-If you do this, the Bean with the prototype scope (PrototypeComponent above) will become the singleton scope. The same thing happens if you have a bean with request scope set in a bean with session scope.
-Be careful when having beans with different scopes as fields.
-
-@Import annotation - helps in importing bean definitions in one class to other. Beneficial in reusability & maintenance & modularizing. Not good for hidden depdencies & ciruclar ones. 
 
 How to declare the main class in Spring 
 
@@ -55,11 +33,56 @@ JPA - standard - all orm's follow jpa.
 pros and cons of it own. standardization vs performance, over abstraction leading to loss in highly detailed control over declaring certain parameters. 
 jpql - query language of jpa.
 
-In spring we have to manually declare the dependencies and maintain them. 
+
+- Auto configuration 
+  - In spring we have to manually declare the dependencies and maintain them. 
 Hibernate mvc all databases and everything.
 in spring boot we can just declare starter-web and web server , mvc would be added for us.
-
-- Because of the dependencies/libraries in the classpath, some applications are configured for such, for example
+  - Because of the dependencies/libraries in the classpath, some applications are configured for such, for example
   - Because Tomcat is on the classpath (transitively referred to by the web starter dependency), an embedded Tomcat container will be started to listen on port 8080.
   - Developing your first Spring Boot application, because H2 is on the classpath, an embedded H2 database bean will be created. This bean is of type javax.sql.DataSource, which the JPA implementation (Hibernate) will need to access the database
 
+The @SpringBootApplication enables Spring component-scanning and Spring Boot
+auto-configuration. In fact, @SpringBootApplication combines three other useful
+annotations:
+
+- Spring’s @Configuration—Designates a class as a configuration class using Spring’s Java-based configuration. 
+- Spring’s @ComponentScan—Enables component-scanning so that the web controller classes and other components you write will be automatically discovered
+and registered as beans in the Spring application context. 
+- @EnableAutoConfiguration - 
+
+> How does enable auto configuration work ? 
+- Each configuration class has an @Configuration annotation and typically uses @Conditional annotations to apply configuration only when specific conditions are met.
+- Example 
+```import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+
+@Configuration
+@ConditionalOnClass(name = "com.example.MyService")
+public class MyAutoConfiguration {
+
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+```
+- The @EnableAutoConfiguration annotation (or @SpringBootApplication, which includes it) triggers the import of auto-configuration classes.    
+
+- <b>In simple words, if any dependency is present, all the configuration classes and conditions on that are evaluated, and this is done at runtime when we use @SpringBootApplication annotation.</b>
+
+> Cacheable annotation
+- As the word suggests, it caches result for any method annotated with @Cacheable annotation. To enable caching we have @EnableCache annotation on the spring boot app. 
+- By default , EhCache is enabled by spring, we can configure external caches with it's own set of pros and cons.
+
+> Actuators.
+- endpoint health /actuator/health 
+  - shows components in the system (app, db's )
+- metrics of the machine hosting the app.
+
+> To visit
+- Spring WebFlux is a framework for building reactive web applications.
+It supports both annotation-based and functional programming models.
+It uses non-blocking I/O and reactive programming principles.
+It can be used for both server-side web applications and reactive web clients.
