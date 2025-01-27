@@ -2,12 +2,11 @@
 
 - Spring IOC
 - Import configuration.
-- 
+- Hibernate and JPAs
+- How does spring handle dependency injection
 
 
-### Covers. 
-
-Spring Bean is any object that is managed by Spring.
+- Spring Bean is any object that is managed by Spring.
 
 What is Spring IOC ?
 Spring IOC is a technique to achieve loose-coupling between objects dependencies. In Spring, instead of having the objects create the dependent objects, the container creates the objects and injects them into the dependent objects.
@@ -20,10 +19,6 @@ public class MainConfig {
     // This class will import the beans defined in PrimaryConfig and SecondaryConfig
 }
 ```
-
-How to declare the main class in Spring 
-
-
 Hibernate - 
 converts the pojo's into tables and columns and vice versa.
 mapping annotations.
@@ -86,3 +81,7 @@ public class MyAutoConfiguration {
 It supports both annotation-based and functional programming models.
 It uses non-blocking I/O and reactive programming principles.
 It can be used for both server-side web applications and reactive web clients.
+
+Spring has classes which are defined by beans, services, repository etc. 
+The spring application context identifies such classes and creates instances of them.
+While it finds annotations like @Autowired or constructor injection, it creates instances for them using reflection.

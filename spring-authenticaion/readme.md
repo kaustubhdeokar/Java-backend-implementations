@@ -53,6 +53,14 @@ Session management
 - always
 
 - Authentication using JWTs 
+  - Using tokens - access and refresh tokens.
+  - access tokens - are short lived token, refresh tokens are long lived.
+  - when user logs in, he gets both the tokens. Refresh tokens are stored in the database.
+  - access tokens are used to access the resources, if access tokens are expired, refresh tokens are used to get new access tokens.
+
+  - Why don't we directly use the refresh tokens to access the resources ?
+    - Because refresh tokens are long lived, if they are compromised, the attacker can use them to get access tokens and access the resources.
+    - Access tokens are short lived, so even if they are compromised, they are of no use to the attacker.
 - Symmetric
   - User logs in, jwt token is generated and user gets that token, uses it in subsequent requests and then backend authenticates token and gives the resource access to the user
 - Asymmetric
