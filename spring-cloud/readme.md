@@ -1,4 +1,3 @@
-
 ### Why eureka
 
 the concept of eureka-server and eureka-client is to have an efficient contact among microservices.
@@ -91,3 +90,20 @@ To have a language agnostic gateway we will install Kong.
 Kong is built on top of nginx server and that is the reason we see this . 
 
 ![alt text](res/loadbalance2.png)
+
+Role of reverse proxy web server (Nginx) and service mesh (Consul)
+
+- Nginx is primarily a web server that excels at handling high-concurrency situations. Think of it as a highly efficient traffic coordinator for your web applications. 
+- When requests come to your system, Nginx can serve static content directly and route dynamic requests to appropriate application servers.
+- In a microservices context, Nginx often acts as a reverse proxy and load balancer. 
+- Imagine you're directing traffic at a busy intersection - Nginx is like a skilled traffic officer who can: 
+  - Route incoming requests to the appropriate service (like directing cars to different streets)
+  - Balance load across multiple instances of the same service (distributing traffic evenly across lanes)
+  - Handle SSL termination (checking vehicles' credentials before they enter restricted areas)
+  - Cache responses (setting up express lanes for common routes)
+  
+- Consul, on the other hand, serves a different but complementary purpose. It's a service mesh solution that provides several crucial capabilities for distributed systems:
+    - Service Discovery: Imagine you're in a large organization where teams and offices frequently move around. Consul acts like a dynamic directory that always knows where every service is located. When Payment Service needs to talk to Auth Service, it asks Consul for the current location rather than hardcoding addresses.
+    - Configuration Management: Consul can store and distribute configuration settings across your entire system. It's like having a central bulletin board where any service can look up its current configuration, and changes can be propagated instantly.
+    - Health Checking: Consul regularly checks if services are healthy, similar to a doctor performing routine health checkups. If a service instance becomes unhealthy, Consul ensures it doesn't receive traffic.
+Here's a simple example of how you might register a service with Consul:

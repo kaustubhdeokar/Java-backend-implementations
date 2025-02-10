@@ -58,6 +58,44 @@ Session management
   - when user logs in, he gets both the tokens. Refresh tokens are stored in the database.
   - access tokens are used to access the resources, if access tokens are expired, refresh tokens are used to get new access tokens.
 
+JWT Token
+[header -> (alg, type) ]
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+[payload -> (claims)]
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+[signature - signed with private key]
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+JWE - are encrypted. as JWT are encoded.
+
+There are three types of JWT claims:
+  - Registered Claims
+    - iss - issuer
+    - sub - subject
+    - aud - audience
+    - exp - expiration
+  - Public Claims
+  - Private Claims
+
+HMAC - SHA256 
+- base 64 encoded secret key - creates the third part - signature by signing the (header and the payload).
+
+ECDSA-256
+generates two keys - 
+- private key - used to sign & verify the jwt signature
+- public key - used to verify the jwt signature.
+
+
+- Potential issues
+  - If an attacker gains access to a JWT's payload, what kind of security risks arise, and how can you mitigate them without encrypting the JWT?
+    - Short-lived access tokens (your answer is correct!) – minimizes the window of exploitation.
+    - Use refresh tokens stored in HTTPOnly Secure Cookies - HttpOnly is a flag which means Javascript cannot access/modify the cookies.
+    - JWT should not contain sensitive information.
+  - Explain a real-world attack scenario where an attacker exploits a JWT signed with an insecure algorithm. How would they do it, and how can it be prevented?
+    - Attacker can change the algorithm to none and then sign the token with the public key.
+    - Use a strong algorithm like RS256.
+
+
   - Why don't we directly use the refresh tokens to access the resources ?
     - Because refresh tokens are long lived, if they are compromised, the attacker can use them to get access tokens and access the resources.
     - Access tokens are short lived, so even if they are compromised, they are of no use to the attacker.
@@ -65,6 +103,15 @@ Session management
   - User logs in, jwt token is generated and user gets that token, uses it in subsequent requests and then backend authenticates token and gives the resource access to the user
 - Asymmetric
   - As above process but jwt using the private key and verified using the public key.
+
+-To revoke JWTs in microservices - we can use a centralized key value store for the same.
+- At the microservice level, we can have an asymmetric authentication when we can give the public key to other services to verify the jwt signature.
+
+- If refresh token is compromised, what is the best strategy ? 
+  - As refresh tokens are meant to be around for a longer period, the user can create n number of access token with it. 
+  - To counter this, we can use the concept of rotating refresh tokens - when the actual user requests for new access tokens, we generate a new refresh token as well and invalidate the older refresh toekn. 
+n 3496
+  - Hence the compromised refresh token is now of no use.
 
 OAuth authentication
 - different types to implement OAuth2. 
@@ -117,6 +164,14 @@ OAuth authentication
 - redirect_uri : registered redirect uris.
 - scope : permissions
 
+### Password Grant (Resource Owner Password Credentials)
+- This is like giving your house keys directly to someone you trust completely. The application gets the username and password directly from the user. This should only be used when there's a high level of trust, typically for first-party applications:
+- In the Password Grant flow, the application directly collects the username and password from the user and exchanges them for an access token. 
+- Think of it like giving your email and password directly to a trusted app instead of being redirected to the email provider's login page.
+- First, your application collects credentials from the user, typically through a login form. Then it makes a direct POST request to the authorization server
+- Then the auth server returns the credentials - access token, permissions(scope), refresh token
+
+
 Implicit grant techique
 - step (A) is same, but after logging in to the server the user directly gets hold of the access token (E).
 
@@ -136,6 +191,6 @@ Implicit grant techique
 - Access Token Exposure: The access token is returned in the URL fragment, which is accessible to the user agent (e.g., web browser). This makes it more susceptible to interception by malicious scripts or browser extensions.
 - no refresh tokens - short lived tokens.
 
-3. Client Credentials Flow: This flow is used for machine-to-machine communication where the client authenticates directly with the authorization server using its credentials to obtain an access token.
+1. Client Credentials Flow: This flow is used for machine-to-machine communication where the client authenticates directly with the authorization server using its credentials to obtain an access token.
 
-4. Hybrid Flow: This flow is a combination of the Authorization Code Flow and the Implicit Flow. It allows the client to receive some tokens directly from the authorization endpoint and others from the token endpoint.
+2. Hybrid Flow: This flow is a combination of the Authorization Code Flow and the Implicit Flow. It allows the client to receive some tokens directly from the authorization endpoint and others from the token endpoint.
