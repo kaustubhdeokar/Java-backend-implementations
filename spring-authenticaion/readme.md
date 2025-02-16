@@ -110,7 +110,7 @@ generates two keys -
 - If refresh token is compromised, what is the best strategy ? 
   - As refresh tokens are meant to be around for a longer period, the user can create n number of access token with it. 
   - To counter this, we can use the concept of rotating refresh tokens - when the actual user requests for new access tokens, we generate a new refresh token as well and invalidate the older refresh toekn. 
-n 3496
+n
   - Hence the compromised refresh token is now of no use.
 
 OAuth authentication
@@ -119,15 +119,43 @@ OAuth authentication
     - Client app redirects user to the Authorization server.
       - The request includes the client ID, redirect URI, requested scopes, and a state parameter for CSRF protection.
       -     ```json
-            GET /authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPES&state=STATE
-            ``` 
+                GET /authorize
+                Request Parameters:
+                - response_type: "code" (required)
+                - client_id: Unique identifier of the client (required)
+                - redirect_uri: URL to return to after authorization (required)
+                - scope: Space-separated list of permissions (optional)
+                - state: Random string for CSRF protection (recommended)
+                - prompt: Can be "none", "login", "consent" (optional)
+            ```
     - User logs in, authorization server gives the authorization code.
       - Authorization response:
       -     ```json
-            HTTP/1.1 302 Found
-            Location: REDIRECT_URI?code=AUTHORIZATION_CODE&state=STATE
+              HTTP/1.1 302 Found
+              Location: {redirect_uri}?
+              Response Parameters:
+              - code: The authorization code (required)
+              - state: Same state value sent in request (required if state was in request)
+
+              Error Response (if authorization fails):
+              - error: Error code (e.g., "access_denied", "invalid_request")
+              - error_description: Human-readable error message
+              - state: Same state value from request
             ```
     - User uses the authorization code to query authorization server for access token.
+      - ```json
+          POST /token
+            Headers:
+            - Content-Type: application/x-www-form-urlencoded
+            - Authorization: Basic {base64(client_id:client_secret)} (if client authentication is required)
+
+          Request Parameters:
+          - grant_type: "authorization_code" (required)
+          - code: Authorization code received (required)
+          - redirect_uri: Same URI used in authorization request (required)
+          - client_id: Client identifier (required if not using Authorization header)
+          - client_secret: Client secret (required if not using Authorization header)
+        ```
     - Authorization server grants access token after verifying the credentials.
       - ```json
             {
@@ -194,3 +222,14 @@ Implicit grant techique
 1. Client Credentials Flow: This flow is used for machine-to-machine communication where the client authenticates directly with the authorization server using its credentials to obtain an access token.
 
 2. Hybrid Flow: This flow is a combination of the Authorization Code Flow and the Implicit Flow. It allows the client to receive some tokens directly from the authorization endpoint and others from the token endpoint.
+
+> With PKCE authorization + Authorization Code grant. 
+
+- in the first request we send, the code challenge verifier (base 64 string) + the code challenge (sha256 of code challenge)
+- the authorization server response is the unchanged..
+- in the third request, we send the code challenge verifier as an additional parameter.
+
+> Symmetric key encryption
+- same key exchanged between auth & resource server (in terms in oauth).
+- you don't want your resource server to act as it can create keys. just verify it.
+![symmetric-key-jwt.png](res/symmetric-key-jwt.png)
